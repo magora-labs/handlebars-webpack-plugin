@@ -19,6 +19,7 @@ class HandlebarsPlugin {
 
         this.options = Object.assign({
             entry: null,
+            entry_ignore: [],
             output: null,
             data: {},
             helpers: {},
@@ -331,7 +332,7 @@ class HandlebarsPlugin {
 
         this.updateData();
 
-        glob(this.options.entry, (globError, entryFilesArray) => {
+        glob(this.options.entry, {ignore: this.options.entry_ignore}, (globError, entryFilesArray) => {
             if (globError) {
                 compilation.errors.push(globError);
                 done();
